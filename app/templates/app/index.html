@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nutrient Counter</title>
+
+    <!-- Подключение стилей Bootstrap -->
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Nutrient Counter</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="food_consumed" class="form-label">Select Food:</label>
+                <select class="form-select" name="food_consumed" id="food_consumed">
+                    {% for food in foods %}
+                    <option value="{{ food.name }}">{{ food.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
+        <h2 class="mt-5">Food List</h2>
+        <ul class="list-group">
+            {% for food in foods %}
+            <li class="list-group-item">{{ food.name }} - {{ food.calories }} calories</li>
+            {% empty %}
+            <li class="list-group-item">No food items available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Подключение скриптов Bootstrap (если нужно) -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
